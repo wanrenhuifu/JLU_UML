@@ -1,0 +1,24 @@
+@startuml UC07_Sequence
+actor Staff
+boundary CourseManagementUI
+control CourseInfoController
+entity Course
+boundary ExternalDBInterface
+
+Staff -> CourseManagementUI : 编辑课程信息并发布
+activate CourseManagementUI
+CourseManagementUI -> CourseInfoController : publishCourseInfo(cid, data)
+activate CourseInfoController
+CourseInfoController -> Course : updateDetails(data)
+activate Course
+Course --> CourseInfoController : updated
+deactivate Course
+CourseInfoController -> ExternalDBInterface : pushData(data)
+activate ExternalDBInterface
+ExternalDBInterface --> CourseInfoController : ack
+deactivate ExternalDBInterface
+CourseInfoController --> CourseManagementUI : notifyComplete()
+deactivate CourseInfoController
+CourseManagementUI --> Staff : 显示发布成功
+deactivate CourseManagementUI
+@enduml

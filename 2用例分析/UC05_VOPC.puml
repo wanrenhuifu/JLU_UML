@@ -1,0 +1,30 @@
+@startuml UC05_VOPC
+class EnrollmentUI <<Boundary>> {
+    +requestDrop()
+}
+class DropCourseController <<Control>> {
+    +requestDrop()
+    +completeDrop()
+}
+class EnrollmentRecord <<Entity>> {
+    +removeRecord()
+}
+class WaitingList <<Entity>> {
+    +popNext()
+}
+class DropRequest <<Entity>> {
+    -sid: String
+    -cid: String
+    -reason: String
+    -status: String
+}
+class ApprovalUI <<Boundary>> {
+    +approveRequest()
+}
+
+EnrollmentUI ..> DropCourseController
+DropCourseController ..> EnrollmentRecord
+DropCourseController ..> WaitingList
+DropCourseController ..> DropRequest
+ApprovalUI ..> DropCourseController
+@enduml

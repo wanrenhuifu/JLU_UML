@@ -1,0 +1,37 @@
+@startuml UC04_Sequence
+actor Student
+boundary EnrollmentUI
+control EnrollmentController
+entity Course
+entity Prerequisite
+entity EnrollmentRecord
+entity WaitingList
+
+Student -> EnrollmentUI : 选择课程并提交
+activate EnrollmentUI
+EnrollmentUI -> EnrollmentController : enrollStudent(sid, cid)
+activate EnrollmentController
+EnrollmentController -> Prerequisite : checkPrerequisites(sid, cid)
+activate Prerequisite
+Prerequisite --> EnrollmentController : isQualified
+deactivate Prerequisite
+alt Qualified
+    EnrollmentController -> Course : getAvailability(cid)
+    activate Course
+    Course --> EnrollmentController : remaining
+    deactivate Course
+    alt Has capacity
+        EnrollmentController -> EnrollmentRecord : create(sid, cid)
+        EnrollmentController -> Course : decrementCapacity(cid)
+        EnrollmentController --> EnrollmentUI : notifySuccess()
+    else Full
+        EnrollmentController -> WaitingList : addToWaitlist(sid, cid)
+        EnrollmentController --> EnrollmentUI : notifyWaitlist()
+    end
+else Not Qualified
+    EnrollmentController --> EnrollmentUI : notifyIneligible()
+end
+deactivate EnrollmentController
+EnrollmentUI --> Student : 显示处理结果
+deactivate EnrollmentUI
+@enduml

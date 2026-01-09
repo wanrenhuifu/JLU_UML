@@ -1,0 +1,25 @@
+@startuml UC02_VOPC
+class PersonalInfoPage <<Boundary>> {
+    +onSave()
+    +displayMessage()
+}
+class ProfileController <<Control>> {
+    +updateProfile()
+}
+class User <<Entity>> {
+    -uid: String
+    -contact: String
+}
+class Student <<Entity>> {
+    -major: String
+}
+class Teacher <<Entity>> {
+    -title: String
+}
+
+Student --|> User
+Teacher --|> User
+PersonalInfoPage ..> ProfileController
+ProfileController ..> Student
+ProfileController ..> Teacher
+@enduml

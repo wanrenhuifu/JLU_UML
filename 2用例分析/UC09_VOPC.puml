@@ -1,0 +1,17 @@
+@startuml UC09_VOPC
+class GradeAuditUI <<Boundary>> {
+    +displayPending()
+    +onApprove()
+}
+class AuditController <<Control>> {
+    +getPendingGrades()
+    +approveGrades()
+}
+class GradeRecord <<Entity>> {
+    -cid: String
+    -status: String
+}
+
+GradeAuditUI ..> AuditController
+AuditController ..> GradeRecord
+@enduml

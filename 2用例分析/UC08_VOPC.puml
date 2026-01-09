@@ -1,0 +1,24 @@
+@startuml UC08_VOPC
+class UserManagementUI <<Boundary>> {
+    +onAddUser()
+    +onUpdateUser()
+}
+class UserOpsController <<Control>> {
+    +saveUserData()
+}
+class User <<Entity>> {
+    -uid: String
+    -name: String
+}
+class Student <<Entity>> {
+    -major: String
+}
+class Teacher <<Entity>> {
+    -department: String
+}
+
+UserManagementUI ..> UserOpsController
+UserOpsController ..> User
+UserOpsController ..> Student
+UserOpsController ..> Teacher
+@enduml

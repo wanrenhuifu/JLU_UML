@@ -1,0 +1,33 @@
+@startuml UC04_VOPC
+class EnrollmentUI <<Boundary>> {
+    +onSelect()
+}
+class EnrollmentController <<Control>> {
+    +enrollStudent()
+}
+class Course <<Entity>> {
+    -cid: String
+    -capacity: Integer
+    -enrolledCount: Integer
+}
+class Prerequisite <<Entity>> {
+    -courseId: String
+    -requiredCourseId: String
+}
+class EnrollmentRecord <<Entity>> {
+    -sid: String
+    -cid: String
+    -status: String
+}
+class WaitingList <<Entity>> {
+    -cid: String
+    -sid: String
+    -timestamp: DateTime
+}
+
+EnrollmentUI ..> EnrollmentController
+EnrollmentController ..> Course
+EnrollmentController ..> Prerequisite
+EnrollmentController ..> EnrollmentRecord
+EnrollmentController ..> WaitingList
+@enduml

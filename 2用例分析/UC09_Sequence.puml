@@ -1,0 +1,26 @@
+@startuml UC09_Sequence
+actor Admin
+boundary GradeAuditUI
+control AuditController
+entity GradeRecord
+
+Admin -> GradeAuditUI : 查看待审核成绩
+activate GradeAuditUI
+GradeAuditUI -> AuditController : getPendingGrades(cid)
+activate AuditController
+AuditController -> GradeRecord : findByStatus(PENDING)
+activate GradeRecord
+GradeRecord --> AuditController : list
+deactivate GradeRecord
+AuditController --> GradeAuditUI : displayList(list)
+deactivate AuditController
+Admin -> GradeAuditUI : 确认审核通过
+activate GradeAuditUI
+GradeAuditUI -> AuditController : approveGrades(cid)
+activate AuditController
+AuditController -> GradeRecord : updateStatus(cid, PUBLISHED)
+AuditController --> GradeAuditUI : notifySuccess()
+deactivate AuditController
+GradeAuditUI --> Admin : 审核完成
+deactivate GradeAuditUI
+@enduml

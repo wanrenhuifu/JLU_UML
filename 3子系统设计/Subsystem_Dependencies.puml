@@ -1,0 +1,53 @@
+@startuml Subsystem_Dependencies
+package "UserSubsystem (用户子系统)" {
+    class LoginController
+    class ProfileController
+    class UserOpsController
+    class Account
+    class User
+    class Student
+    class Teacher
+}
+
+package "EnrollmentSubsystem (选课管理子系统)" {
+    class EnrollmentController
+    class CourseSearchController
+    class DropCourseController
+    class EnrollmentRecord
+    class WaitingList
+    class DropRequest
+}
+
+package "CourseSubsystem (课程管理子系统)" {
+    class CourseInfoController
+    class Course
+}
+
+package "GradeSubsystem (成绩管理子系统)" {
+    class GradeController
+    class AuditController
+    class GradeRecord
+}
+
+package "IntegrationSubsystem (集成接口子系统)" {
+    interface ExternalDBInterface
+}
+
+package "FoundationSubsystem (基础设施子系统)" {
+    class DBConnection
+    class SecurityProvider
+    class Logger
+}
+
+' 依赖关系
+EnrollmentSubsystem ..> CourseSubsystem : 查询/预占名额
+EnrollmentSubsystem ..> UserSubsystem : 验证身份/获取学生学籍
+GradeSubsystem ..> CourseSubsystem : 绑定科目
+GradeSubsystem ..> UserSubsystem : 教师身份/学生分值
+CourseSubsystem ..> IntegrationSubsystem : 同步外部数据
+UserSubsystem ..> FoundationSubsystem : 安全/日志
+CourseSubsystem ..> FoundationSubsystem : 持久化
+GradeSubsystem ..> FoundationSubsystem : 持久化
+EnrollmentSubsystem ..> FoundationSubsystem : 持久化
+
+@enduml
