@@ -2,6 +2,7 @@
 
 # 注意！
 # 老师若禁止使用plantuml，同学们可以去使用enterprise architect官方的mcp
+ https://www.sparxsystems.jp/en/MCP/
 
 ### 项目结构
 
