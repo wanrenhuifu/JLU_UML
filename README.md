@@ -1,7 +1,7 @@
 ## 统一建模语言及工具大作业
 
 # 注意！
-# 老师若禁止使用plantuml，同学们可以去使用enterprise architect官方的mcp
+# 老师若禁止使用plantuml，同学们可以去使用enterprise architect官方的mcp(链接如下)
  https://www.sparxsystems.jp/en/MCP/
 
 ### 项目结构
